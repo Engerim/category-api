@@ -1,0 +1,2 @@
+#!/bin/bash
+XDEBUG_CONFIG="remote_enable=1 $XDEBUG_CONFIG" php "$@"
