@@ -22,7 +22,7 @@ Feature:
   Scenario: get one category by id
     When I send a GET request to "/categories/83a2c894-85e7-4761-9e10-88423d08d4e2"
     Then the response status code should be 200
-    And the JSON node "root.isVisible" should be equal to "false"
+    And the JSON node "root.isVisible" should be false
     And the JSON node "root.children" should have 2 elements
     And the JSON should be valid according to the schema "features/schema/category.json"
 
@@ -52,8 +52,20 @@ Feature:
     """
     And the response status code should be 200
     And the JSON should be valid according to the schema "features/schema/category.json"
-    And the JSON node "root.isVisible" should be equal to "true"
+    And the JSON node "root.isVisible" should be true
 
+  Scenario: update an existing category
+    When I send a PUT request to "/categories/95eda71d-0b08-429b-b9d7-17c49728df87" with body:
+    """
+      {
+        "name": "Make Up Update",
+        "slug": "make-up-update",
+        "isVisible" : true
+      }
+    """
+    And the response status code should be 200
+    And the JSON should be valid according to the schema "features/schema/category.json"
+    And the JSON node "root.isVisible" should be true
 
   Scenario: create a new category
     When I send a POST request to "/categories" with body:
@@ -66,7 +78,15 @@ Feature:
     """
     And the response status code should be 201
     And the JSON should be valid according to the schema "features/schema/category.json"
-    And the JSON node "root.isVisible" should be equal to "true"
+    And the JSON node "root.isVisible" should be true
+
+  Scenario: try to create a new category without the required fields
+    When I send a POST request to "/categories" with body:
+    """
+      { }
+    """
+    And the response status code should be 400
+    And the JSON node "violations" should have 5 element
 
   Scenario: create a new category with parent
     Given I add "CONTENT_TYPE" header equal to "application/vnd.api+json"
@@ -99,4 +119,21 @@ Feature:
     And the JSON node "root.children" should have 3 elements
     And the JSON should be valid according to the schema "features/schema/category.json"
 
-    #####TODO check etag header and so on
+  Scenario: check eTag headers
+    When I send a GET request to "/categories/95eda71d-0b08-429b-b9d7-17c49728df87"
+    Then the response status code should be 200
+    And the header "etag" should be equal to '"ba21505692cdb6e01301dbe36f0ef735"'
+    And the header "cache-control" should be equal to 'max-age=3600, public, s-maxage=3600'
+    And I add "CONTENT_TYPE" header equal to "application/json"
+    And I add "ACCEPT" header equal to "application/json"
+    And I send a PATCH request to "/categories/95eda71d-0b08-429b-b9d7-17c49728df87" with body:
+    """
+      {
+        "isVisible" : true
+      }
+    """
+    And the response status code should be 200
+    And I add "CONTENT_TYPE" header equal to "application/json"
+    And I add "ACCEPT" header equal to "application/json"
+    And I send a GET request to "/categories/95eda71d-0b08-429b-b9d7-17c49728df87"
+    And the header "etag" should be equal to '"4427f8de31dbd9598543fcf391dd001d"'

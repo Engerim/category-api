@@ -1,0 +1,31 @@
+language: php
+sudo: false
+
+cache:
+ directories:
+   - $HOME/.composer/cache
+   - $HOME/.npm
+
+env:
+ global:
+   - APP_ENV=test
+   - DATABASE_URL_TEST=mysql://root@127.0.0.1:3306/category_test?charset=utf8mb4&serverVersion=5.7
+
+matrix:
+ include:
+   - php: '7.2'
+     services:
+       - mysql
+     before_script:
+       - mysql -e 'CREATE DATABASE category_test;'
+
+before_install:
+ - phpenv config-rm xdebug.ini || echo "xdebug not available"
+ - echo "memory_limit=-1" >> ~/.phpenv/versions/$(phpenv version-name)/etc/conf.d/travis.ini
+
+install:
+ - composer install --prefer-dist --no-progress --no-suggest --ansi;
+
+script:
+ - composer code-style
+ - composer test

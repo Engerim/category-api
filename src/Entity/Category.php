@@ -10,6 +10,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Ramsey\Uuid\Uuid;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
@@ -25,6 +26,8 @@ use Symfony\Component\Validator\Constraints as Assert;
  * @ApiResource()
  *
  * @ApiFilter(SearchFilter::class, properties={"slug": "exact"})
+ *
+ * @UniqueEntity("slug")
  */
 class Category
 {
@@ -41,6 +44,7 @@ class Category
      *
      * @Assert\NotBlank()
      * @Assert\NotNull()
+     * @Assert\Type(type="string")
      *
      * @ORM\Column(type="string")
      */
@@ -51,6 +55,7 @@ class Category
      *
      * @Assert\NotBlank()
      * @Assert\NotNull()
+     * @Assert\Type(type="string")
      *
      * @ORM\Column(type="string", unique=true)
      */
@@ -58,6 +63,10 @@ class Category
 
     /**
      * @var bool
+     *
+     * @Assert\NotNull()
+     * @Assert\NotBlank()
+     * @Assert\Type(type="boolean")
      *
      * @ORM\Column(type="boolean")
      */
@@ -68,6 +77,8 @@ class Category
      *
      * @ORM\ManyToOne(targetEntity="Category", inversedBy="children")
      * @ORM\JoinColumn(name="fk_parent", referencedColumnName="id_category")
+     *
+     *
      *
      */
     private $parent;

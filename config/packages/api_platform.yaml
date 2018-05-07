@@ -10,7 +10,11 @@ api_platform:
       html:     ['text/html']
 
     http_cache:
-            # Automatically generate etags for API responses.
-            etag: true
+      # Automatically generate etags for API responses.
+      etag: true
 
-            public: ~
+      max_age: 3600
+
+      shared_max_age: 3600
+
+      public: ~

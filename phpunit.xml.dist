@@ -43,6 +43,7 @@
             <directory>src</directory>
             <exclude>
                 <directory>src/Entity</directory>
+                <directory>src/Migrations</directory>
             </exclude>
         </whitelist>
     </filter>

@@ -2,6 +2,9 @@ Ramsey\Uuid\Uuid:
     uuid:
         __construct: { fromString: ['83a2c894-85e7-4761-9e10-88423d08d4e2'] }
 
+    uuid_etag:
+        __construct: { fromString: ['95eda71d-0b08-429b-b9d7-17c49728df87'] }
+
 App\Entity\Category:
   category_1:
     name: 'Perfume'
@@ -18,6 +21,11 @@ App\Entity\Category:
     parent: '@category_2'
 
   category_4:
-      name: 'Make-Up'
-      slug: 'premium-make-up'
-      parent: '@category_2'
+    name: 'Make-Up'
+    slug: 'premium-make-up'
+    parent: '@category_2'
+
+  category_5:
+    id: '@uuid_etag'
+    name: 'Make-Up'
+    slug: 'make-up'

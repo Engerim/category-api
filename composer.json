@@ -74,8 +74,8 @@
     ],
     "tests": [
       "vendor/bin/phpunit",
-      "php -d memory_limit=256M vendor/bin/behat -p bamboo -s default",
-      "infection --min-msi=65 --min-covered-msi=88 --threads=4",
+      "php -d memory_limit=256M vendor/bin/behat -p ci -s default",
+      "infection --min-msi=100 --min-covered-msi=100 --threads=4",
       "php tests/coverageChecker.php var/coverage/clover.xml 100"
     ],
     "post-deploy-cmd": [

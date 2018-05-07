@@ -6,7 +6,8 @@
         ],
         "excludes": [
             "Migrations",
-            "Entity"
+            "Entity",
+            "Kernel.php"
         ]
     },
     "logs": {

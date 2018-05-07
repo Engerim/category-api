@@ -1,4 +1,4 @@
-<?php declare(strict_types=1);
+<?php declare(strict_types = 1);
 
 namespace App\Serializer\Normalizer;
 
@@ -82,7 +82,7 @@ class NullFilterItemNormalizer implements NormalizerInterface, SerializerAwareIn
         return \array_filter($data, function ($value) {
 
             if (\is_array($value)) {
-                return \count($value) > 0;
+                return !empty($value);
             }
 
             return $value !== null;

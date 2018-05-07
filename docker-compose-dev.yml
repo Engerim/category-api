@@ -1,0 +1,45 @@
+version: '2'
+services:
+  http-svc:
+    build:
+      context: .
+    image: php-app-category:local-dev
+    ports:
+      - "80:8080"
+    volumes:
+      - .:/local-dev:cached
+      - .composer:/opt/composer:delegated
+    working_dir: /local-dev
+    environment:
+      - PHP_IDE_CONFIG=serverName=category.dev.local
+      - XDEBUG_CONFIG=remote_host=192.168.178.22 idekey=PHPSTORM
+      - LOCAL_USER_ID
+      - DOCUMENT_ROOT=/local-dev/public
+      - SKIP_LOCKDOWN_DOCUMENT_ROOT=true
+    depends_on:
+      - mysql
+    networks:
+      - app_net
+  mysql:
+      image: mysql:5.7.17
+      environment:
+          MYSQL_ROOT_PASSWORD: root
+          MYSQL_DATABASE: category
+      command: ["mysqld", "--character-set-server=utf8mb4", "--collation-server=utf8mb4_unicode_ci"]
+      volumes:
+        - .:/app
+        - ./mysql-data:/var/lib/mysql
+      ports:
+        - "3306:3306"
+      networks:
+        - app_net
+networks:
+  app_net:
+    driver: bridge
+    ipam:
+      driver: default
+      config:
+      -
+        subnet: 192.168.0.0/24
+        gateway: 192.168.0.1
+

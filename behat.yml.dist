@@ -33,3 +33,9 @@ default:
         class: App\Kernel
     Fidry\AliceBundleExtension\Extension:
         fixtures_base_path: ~
+ci:
+  formatters:
+    progress : ~
+    junit:
+      output_path: var/behat
+    pretty: false
