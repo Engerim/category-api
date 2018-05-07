@@ -1,6 +1,8 @@
 Category Api
 =============================
 
+[![Build Status](https://travis-ci.org/Engerim/category-api.svg?branch=master)](https://travis-ci.org/Engerim/category-api)
+
 Setup
 -----
 

@@ -6,5 +6,5 @@ includes:
     - vendor/phpstan/phpstan-phpunit/strictRules.neon
 parameters:
     symfony:
-        container_xml_path: var/cache/dev/srcDevDebugProjectContainer.xml
+        container_xml_path: var/cache/test/srcTestDebugProjectContainer.xml
     tmpDir: var/cache/phpstan

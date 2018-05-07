@@ -1,5 +1,4 @@
 language: php
-sudo: false
 
 cache:
  directories:
@@ -9,19 +8,29 @@ cache:
 env:
  global:
    - APP_ENV=test
-   - DATABASE_URL_TEST=mysql://root@127.0.0.1:3306/category_test?charset=utf8mb4&serverVersion=5.7
+   - DATABASE_URL_TEST="mysql://root@127.0.0.1:3306/category_test?charset=utf8mb4&serverVersion=5.7"
+   - APP_SECRET=ffeb5bb6229f9d3a9ae8cb5601f83820
+   - CORS_ALLOW_ORIGIN="^https?://localhost:?[0-9]*$"
+php: '7.2'
 
-matrix:
- include:
-   - php: '7.2'
-     services:
-       - mysql
-     before_script:
-       - mysql -e 'CREATE DATABASE category_test;'
+services:
+  - mysql
+
+addons:
+   apt:
+     sources:
+       - mysql-5.7-trusty
+     packages:
+       - mysql-server
+
+dist: trusty
+sudo: required
 
 before_install:
- - phpenv config-rm xdebug.ini || echo "xdebug not available"
+ - mysql -e 'CREATE DATABASE category_test;'
  - echo "memory_limit=-1" >> ~/.phpenv/versions/$(phpenv version-name)/etc/conf.d/travis.ini
+ - composer global require infection/infection
+ - export PATH="$PATH:$HOME/.composer/vendor/bin"
 
 install:
  - composer install --prefer-dist --no-progress --no-suggest --ansi;
