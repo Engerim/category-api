@@ -1,0 +1,23 @@
+Ramsey\Uuid\Uuid:
+    uuid:
+        __construct: { fromString: ['83a2c894-85e7-4761-9e10-88423d08d4e2'] }
+
+App\Entity\Category:
+  category_1:
+    name: 'Perfume'
+    slug: 'perfume'
+
+  category_2:
+    id: '@uuid'
+    name: 'Premium'
+    slug: 'premium'
+
+  category_3:
+    name: 'Perfume'
+    slug: 'premium-perfume'
+    parent: '@category_2'
+
+  category_4:
+      name: 'Make-Up'
+      slug: 'premium-make-up'
+      parent: '@category_2'

@@ -8,3 +8,9 @@ api_platform:
       json:     ['application/json']
       jsonapi:  ['application/vnd.api+json']
       html:     ['text/html']
+
+    http_cache:
+            # Automatically generate etags for API responses.
+            etag: true
+
+            public: ~

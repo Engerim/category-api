@@ -1,0 +1,6 @@
+{
+  "items": {
+    "$ref": "file:///local-dev/features/schema/category.json"
+  },
+  "type": "array"
+}

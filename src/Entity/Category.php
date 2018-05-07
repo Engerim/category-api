@@ -1,8 +1,11 @@
-<?php
+<?php declare(strict_types = 1);
 
 namespace App\Entity;
 
+use ApiPlatform\Core\Annotation\ApiFilter;
 use ApiPlatform\Core\Annotation\ApiResource;
+use ApiPlatform\Core\Annotation\ApiSubresource;
+use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
@@ -20,6 +23,8 @@ use Symfony\Component\Validator\Constraints as Assert;
  * @author Alexander Miehe <alexander.miehe@gmail.com>
  *
  * @ApiResource()
+ *
+ * @ApiFilter(SearchFilter::class, properties={"slug": "exact"})
  */
 class Category
 {
@@ -63,6 +68,7 @@ class Category
      *
      * @ORM\ManyToOne(targetEntity="Category", inversedBy="children")
      * @ORM\JoinColumn(name="fk_parent", referencedColumnName="id_category")
+     *
      */
     private $parent;
 
@@ -70,6 +76,8 @@ class Category
      * @var Collection
      *
      * @ORM\OneToMany(targetEntity="Category", mappedBy="parent")
+     *
+     * @ApiSubresource()
      */
     private $children;
 

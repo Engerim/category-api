@@ -1,0 +1,10 @@
+includes:
+    - vendor/lookyman/phpstan-symfony/extension.neon
+    - vendor/jangregor/phpstan-prophecy/src/extension.neon
+    - vendor/phpstan/phpstan-phpunit/extension.neon
+    - vendor/phpstan/phpstan-phpunit/rules.neon
+    - vendor/phpstan/phpstan-phpunit/strictRules.neon
+parameters:
+    symfony:
+        container_xml_path: var/cache/dev/srcDevDebugProjectContainer.xml
+    tmpDir: var/cache/phpstan

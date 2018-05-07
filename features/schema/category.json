@@ -1,0 +1,38 @@
+{
+  "properties": {
+    "id": {
+      "title": "uuid",
+      "type": "string"
+    },
+    "name": {
+      "title": "name of the category",
+      "type": "string"
+    },
+    "slug": {
+      "title": "slug of the category",
+      "type": "string"
+    },
+    "parent": {
+      "title": "path to parent",
+      "type": "string"
+    },
+    "isVisible": {
+      "title": "either to show the category or not",
+      "type": "boolean"
+    },
+    "children": {
+      "title": "paths to children",
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    }
+  },
+  "required": [
+    "id",
+    "name",
+    "slug",
+    "isVisible"
+  ],
+  "additionalProperties": false
+}

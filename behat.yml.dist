@@ -1,0 +1,35 @@
+default:
+  formatters:
+    pretty:
+      verbose:  true
+      paths:    false
+      snippets: false
+  calls:
+    error_reporting: 16383 # E_ALL & ~E_USER_DREPRECATED
+  suites:
+    default:
+      paths:    [ %paths.base%/features ]
+      contexts:
+      - Fidry\AliceBundleExtension\Context\Doctrine\AliceORMContext
+      - behatch:context:rest
+      - Behat\MinkExtension\Context\MinkContext
+      - App\Behat\FeatureContext
+      - App\Behat\JsonContext
+      - App\Behat\DatabaseContext:
+        - '@doctrine'
+
+  extensions:
+    Behatch\Extension: ~
+    Behat\MinkExtension:
+      base_url: ~
+      sessions:
+        default:
+          symfony2: ~
+    Behat\Symfony2Extension:
+      kernel:
+        env: test
+        debug: true
+        bootstrap: features/bootstrap/bootstrap.php
+        class: App\Kernel
+    Fidry\AliceBundleExtension\Extension:
+        fixtures_base_path: ~

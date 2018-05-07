@@ -1,0 +1,18 @@
+{
+    "timeout": 10,
+    "source": {
+        "directories": [
+            "src"
+        ],
+        "excludes": [
+            "Migrations",
+            "Entity"
+        ]
+    },
+    "logs": {
+        "text": "var/infection/infection-log.txt",
+        "summary": "var/infection/summary-log.txt",
+        "debug": "var/infection/debug-log.txt"
+    },
+    "tmpDir": "var/cache/infection"
+}
