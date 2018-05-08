@@ -20,6 +20,8 @@ Setup Dev
 
 - Copy the `.env.dist` file to `.env`
 
+- Run once to create a env variable which contains the local user id. This is needed as mapping information for gosu:   `./build-scripts/docker/user.sh`
+
 - Start containers: `docker-compose -f docker-compose-dev.yml up -d`
 
 - Run a bash inside the http-svc container `docker-compose -f docker-compose-dev.yml run --rm http-svc bash`
