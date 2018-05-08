@@ -5,7 +5,7 @@ services:
       context: .
     image: php-app-category:local-dev
     ports:
-      - "80:8080"
+      - "8080:8080"
     volumes:
       - .:/local-dev:cached
       - .composer:/opt/composer:delegated
@@ -18,8 +18,6 @@ services:
       - SKIP_LOCKDOWN_DOCUMENT_ROOT=true
     depends_on:
       - mysql
-    networks:
-      - app_net
   mysql:
       image: mysql:5.7.17
       environment:
@@ -31,15 +29,4 @@ services:
         - ./mysql-data:/var/lib/mysql
       ports:
         - "3306:3306"
-      networks:
-        - app_net
-networks:
-  app_net:
-    driver: bridge
-    ipam:
-      driver: default
-      config:
-      -
-        subnet: 192.168.0.0/24
-        gateway: 192.168.0.1
 
